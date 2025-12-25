@@ -11,7 +11,7 @@ async function getweather() {
     return;
   }
 
-  const apikey = "5add3b8528d2d4780718cc9de6c6f676";
+  const apikey = api_key; // from config.js
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}&units=metric`;
 
   result.textContent = "Loading...";
@@ -25,7 +25,11 @@ async function getweather() {
 
     const data = await response.json();
 
-    result.textContent = `Weather in ${data.name}: ${data.main.temp}°C, ${data.weather[0].description}`;
+    result.innerHTML = `
+    ${data.name}: ${data.main.temp}°C, ${data.weather[0].description}
+    <br>
+    <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="icon">
+    `;
   } catch (error) {
     result.textContent =
       "Unable to get touch with weather, please try again later.";
